@@ -101,7 +101,7 @@
     },
     "star-wars-app-e2e": {
       "root": "",
-      "sourceRoot": "e2e",
+      "sourceRoot": "",
       "projectType": "application",
       "architect": {
         "e2e": {
