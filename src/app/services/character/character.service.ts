@@ -1,11 +1,11 @@
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Character } from '../../models/Character';
-import { resolveCname } from 'dns';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +24,7 @@ export class CharacterService {
           res => { // Success
             let characters:Array<Character> = new Array();
             for(let i = 0; i < Object.keys(res).length; i++){
-              let character = new Character();
+              let character = new Character(null);
               character.name = res[i].name;
               character.height = res[i].height;
               character.mass = res[i].mass;
@@ -40,5 +40,11 @@ export class CharacterService {
         );
     });
     return promise;
+  }
+
+  getCharactersObservable(): Observable<Character[]> {
+    return this.http.get<Character[]>(this.url).pipe(
+      map(characteres => characteres.map(character => new Character(character)))
+    );
   }
 }
