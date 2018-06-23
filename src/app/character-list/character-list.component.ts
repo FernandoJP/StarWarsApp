@@ -14,7 +14,8 @@ export class CharacterListComponent implements OnInit {
   constructor(public characterService:CharacterService, public dialog: MatDialog) { }
 
   ngOnInit() {  
-    this.characterService.getCharacters().then( (data) => this.characters = data as Array<Character>)
+    // this.characterService.getCharacters().then( (data) => this.characters = data as Array<Character>);
+    this.characterService.getCharactersObservable().subscribe(res => this.characters = res);
   }
 
   openDialog(character:Character) {
