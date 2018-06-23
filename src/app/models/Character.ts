@@ -9,13 +9,14 @@ export class Character{
     gender:string;
 
     constructor(values: Object) {
+        let characters:Array<Character> = new Array();
         for(let key in values){
             let newKey = key.split("_")
                 .map(t => t.charAt(0).toUpperCase() + t.slice(1))
                 .join("");
-            values[newKey.charAt(0).toLowerCase() + newKey.slice(1)] = values[key];
+            characters[newKey.charAt(0).toLowerCase() + newKey.slice(1)] = values[key];          
         }
-        Object.assign(this, values);
+        Object.assign(this, characters);
     }
 
 }

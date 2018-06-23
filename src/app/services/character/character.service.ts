@@ -16,32 +16,6 @@ export class CharacterService {
 
   constructor(private http: HttpClient) { }
 
-  getCharacters() {
-    let promise = new Promise((resolve, reject) => {
-      this.http.get(this.url)
-        .toPromise()
-        .then(
-          res => { // Success
-            let characters:Array<Character> = new Array();
-            for(let i = 0; i < Object.keys(res).length; i++){
-              let character = new Character(null);
-              character.name = res[i].name;
-              character.height = res[i].height;
-              character.mass = res[i].mass;
-              character.hairColor = res[i].hair_color;
-              character.skinColor = res[i].skin_color;
-              character.eyeColor = res[i].eye_color;
-              character.birthYear = res[i].birth_year;
-              character.gender = res[i].gender;
-              characters.push(character);
-            }
-            resolve(characters);
-          }
-        );
-    });
-    return promise;
-  }
-
   getCharactersObservable(): Observable<Character[]> {
     return this.http.get<Character[]>(this.url).pipe(
       map(characteres => characteres.map(character => new Character(character)))
